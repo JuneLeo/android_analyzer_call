@@ -32,6 +32,13 @@ publishing {
         maven(MavenPublication) {
             from components.java
         }
+
+        release(MavenPublication) {
+            from components.release
+            groupId = 'com.john.song'
+            artifactId = 'analyzer-call'
+            version = '1.0.0'
+        }
     }
 
     repositories {
