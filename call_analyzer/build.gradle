@@ -1,0 +1,58 @@
+plugins {
+    id 'java-library'
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'maven-publish'
+}
+
+gradlePlugin {
+    plugins {
+        CallAnalyzer {
+            id = 'call_analyzer'
+            implementationClass = 'com.call.analyzer.AnalyzerCallPlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation libs.agp
+    implementation libs.asm.commons
+    implementation libs.gson
+    implementation libs.opencsv
+}
+
+
+group = 'com.analyzer.call'
+version = '1.0.0'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        mavenLocal()
+//        maven {
+//            name 'remote'
+//            url mvn_repo
+//            credentials {
+//                username = mvn_username
+//                password = mvn_password
+//            }
+//        }
+
+        maven {
+            name 'm2'
+            url System.getProperty("user.home") + "/.m2/repository"
+        }
+    }
+}
+
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_1_8
+//    targetCompatibility = JavaVersion.VERSION_1_8
+//}
